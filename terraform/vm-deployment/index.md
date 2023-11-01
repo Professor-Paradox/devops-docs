@@ -18,7 +18,7 @@ Advantages
 
 To use Terraform copy and paste the below code to your file
 
-```tf
+```hcl
 terraform {
   required_providers {
     azurerm = {
@@ -127,7 +127,6 @@ resource "azurerm_linux_virtual_machine" "vm_app" {
 # here are the screenshots
 
 ![](img/terraform-vm-01.png)
-
 <hr>
   
 ![](img/terraform-vm-02.png)

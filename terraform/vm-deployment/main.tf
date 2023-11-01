@@ -12,7 +12,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "resource_group" {
-  name     = "devops-rg"
+  name     = "devops-group"
   location = "West Europe"
 }
 
@@ -83,7 +83,7 @@ resource "azurerm_linux_virtual_machine" "vm_app" {
   admin_username                  = "ubuntu"
   admin_password                  = "Password@1234"
   disable_password_authentication = false
-  size                            = "Standard_B1s"
+  size                            = "Standard_D2s_v3"
 
   os_disk {
     caching              = "ReadWrite"
@@ -95,7 +95,6 @@ resource "azurerm_linux_virtual_machine" "vm_app" {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts"
-    version   = "latest"
-
+    version   = "latest
   }
 }

@@ -11,4 +11,8 @@
   - [Create a Ubuntu VM](terraform/vm-deployment/index.md)
 
 1. [Node Installation](./node/install/index.md)
-2. [Node Application Deployment](./node/deploy/index.md)
+2. [Angular Project Deploy](./angular/deploy/index.md)
+3. [Nginx Web Server Deploy](./nginx/index.md)
+4. [Install Java on Ubuntu](./java/install/index.md)
+5. [Maven Project Deploy](./maven/deploy/index.md)
+6. [Sql Deployment](./sql/deploy/index.md)
