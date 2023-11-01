@@ -8,6 +8,14 @@ Advantages
 4. Scalable
 5. Fast
 
+## Steps to Create Ubuntu VM
+
+1. After Downloading the Terraform 64 bit and extract to C:\
+2. create a new folder in your pc and cd to the folder, create a new 'main.tf' file with vscode and paste the below code 
+3. run the code with 'C:\terraform.exe <command>' 
+4. if issue arises login to azure with 'az login'
+5. Once vm Creation is done use putty to connect with ip and username, password
+
 To use Terraform copy and paste the below code to your file
 
 ```tf
@@ -114,30 +122,38 @@ resource "azurerm_linux_virtual_machine" "vm_app" {
 }
 ```
 
+
+
 # here are the screenshots
 
-![](img/terraform-vm-create-01.png)
+![](img/terraform-vm-01.png)
 
 <hr>
   
-![](img/terraform-vm-create-02.png)
+![](img/terraform-vm-02.png)
 <hr>
   
-![](img/terraform-vm-create-03.png)
+![](img/terraform-vm-03.png)
 <hr>
   
-![](img/terraform-vm-create-04.png)
+![](img/terraform-vm-04.png)
 <hr>
   
-![](img/terraform-vm-create-05.png)
+![](img/terraform-vm-05.png)
 <hr>
   
-![](img/terraform-vm-create-06.png)
+![](img/terraform-vm-06.png)
 <hr>
   
-![](img/terraform-vm-create-07.png)
+![](img/terraform-vm-07.png)
 <hr>
   
-![](img/terraform-vm-create-08.png)
+![](img/terraform-vm-08.png)
+<hr>
+  
+![](img/terraform-vm-09.png)
+<hr>
+  
+![](img/terraform-vm-10.png)
 <hr>
   

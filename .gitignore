@@ -1,0 +1,3 @@
+terraform/vm-deployment/.terraform.lock.hcl
+terraform/vm-deployment/terraform.tfstate
+terraform/vm-deployment/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.78.0/windows_amd64/terraform-provider-azurerm_v3.78.0_x5.exe
