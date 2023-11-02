@@ -3,9 +3,8 @@
 1. Install Mysql
 2. Start the Database
 3. Configure Mysql 
-4. Clone Git Sql
-5. Create database with mysql
-6. Verify Database
+4. Create database with mysql
+5. Verify Database
 
 
 ## Run these commands on putty
@@ -29,9 +28,6 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'P@ssw0rd
 # exit after permission and password are done
 exit
 
-# Run the below command In normal putty, Not in mysql
-sudo mysql -u root -p'P@ssw0rd' -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'; FLUSH PRIVILEGES;"
-
 # disable firewall temporarily
 sudo ufw disable
 
@@ -39,14 +35,11 @@ sudo ufw disable
 sudo systemctl restart mysql
 sudo systemctl status mysql
 
-# Step 4
-# lets clone the git repo and deploy our database
-cd ~
-git clone https://github.com/Professor-Paradox/sql_devops_demo.git
-cd ~/sql_devops_demo
+# Run the below command In normal putty, Not in mysql
+sudo mysql -u root -p'P@ssw0rd' -e "CREATE USER 'root'@'%' IDENTIFIED BY 'P@ssw0rd'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 
-# Step 5
-mysql -u root -p'P@ssw0rd' < db_create.sql
+# Step 4
+mysql -u root -p'P@ssw0rd' -e "create database devops_demo; use devops_demo;"
 
 # Step 6
 # verify database and tables are created
