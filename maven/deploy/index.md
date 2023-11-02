@@ -61,10 +61,12 @@ sudo chmod 755 ~/application.properties
 
 # Run java jar file 
 # make sure application.properties and spring.jar file are in the same directory
-java -jar ~/spring.jar
+java -jar ~/spring.jar &  
 
+# check if the service is running in backgrou
+ps -a
 ```
-## If getting Data Base issue refer to Data Base Setup
+## If getting Data Base issue refer to [Data Base Setup](../../sql/deploy/index.md)
 
 ## Here are the Screenshots
 
@@ -96,5 +98,17 @@ java -jar ~/spring.jar
 <hr>
   
 ![](img/maven-10.png)
+<hr>
+  
+![](img/maven-11.png)
+<hr>
+  
+![](img/maven-12.png)
+<hr>
+  
+![](img/maven-13.png)
+<hr>
+  
+![](img/maven-14.png)
 <hr>
   
