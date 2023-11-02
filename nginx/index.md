@@ -14,45 +14,38 @@ sudo apt install nginx -y
 
 # step 2
 # deploy the above build to the nginx server
-sudo cp -r  ~/angular_devops_demo/dist/angular_devops_demo/* /var/www/html
+cd ~; sudo cp -r  ~/angular_devops_demo/dist/angular_devops_demo/* /var/www/html
 
 # Change File permission
-sudo chmod -R +rx /var/www/html
+sudo chmod -R +rx /var/www/html 
+
+# before applying below config change to nginx web server visit the <vm-ip> in a incognito browser
+# now we can see that there is no data base or api connection lets solve that
 
 # step 3
 sudo tee /etc/nginx/sites-enabled/default << EOF > /dev/null
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+  listen 80 default_server;
+  listen [::]:80 default_server;
 
-    root /var/www/html;
+  root /var/www/html;
 
-    index index.html index.htm index.nginx-debian.html;
+  index index.html index.htm index.nginx-debian.html;
 
-    server_name _;
+  server_name _;
 
-    location / {
-        try_files $uri $uri/ /index.html;
-        add_header 'Access-Control-Allow-Origin' '*';
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
-        add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
-
-        if ($request_method = 'OPTIONS') {
-            add_header 'Access-Control-Max-Age' 1728000;
-            add_header 'Content-Type' 'text/plain charset=UTF-8';
-            add_header 'Content-Length' 0;
-            return 204;
-        }
-    }
-
-    location /api/ {
-        proxy_pass http://localhost:8080;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
+  location / {
+    try_files $uri $uri/ /index.html =404;
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
+  }
+  
+  location /api/ {
+    proxy_pass http://localhost:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Host localhost;
+  }
 }
 EOF
 
@@ -61,7 +54,11 @@ EOF
 # restart the service
 sudo systemctl restart nginx
 
+# verify the ports using
+netstat -tlpn
+
 # visit the azure vm url and check <azure-ip:80> in incognito
+# this should show a data table that you can interact and create a user, delete user and update user
 ```
 
 
@@ -83,5 +80,8 @@ sudo systemctl restart nginx
 <hr>
   
 ![](img/nginx-06.png)
+<hr>
+  
+![](img/nginx-07.png)
 <hr>
   

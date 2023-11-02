@@ -13,4 +13,7 @@
 2. [Install Java on Ubuntu](./java/install/index.md)
 3. [Maven Project Deployment](./maven/deploy/index.md)
 4. [Node Installation](./node/install/index.md)
-5. [Angular App Deployment](./angular/deploy/index.md)
+5. [Angular App Building](./angular/deploy/index.md)
+6. [Nginx App Deployment](./nginx/index.md)
+
+## Done With Deployment of Web Application
