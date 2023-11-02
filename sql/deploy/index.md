@@ -18,16 +18,18 @@ mysql --version
 sudo systemctl restart mysql
 sudo systemctl status mysql
 
-# Step 3
+# Step 3 (Only run this once to create a password for root account)
 sudo mysql -u root -p
 
 # modifying mysql behavior
 # run inside the mysql> cli
+# create root user password
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'P@ssw0rd';
 
-# exit after permission and password are done
+# exit mysql after providing password
 exit
 
+# now we can use bash script to run the sql commands with root user and password we created 
 # disable firewall temporarily
 sudo ufw disable
 
@@ -78,7 +80,19 @@ netstat -tulpn
   
 ![](img/sql-db-07.png)
 <hr>
-
+  
+![](img/sql-db-08.png)
+<hr>
+  
+![](img/sql-db-09.png)
+<hr>
+  
+![](img/sql-db-10.png)
+<hr>
+  
 ![](img/sql-db-11.png)
+<hr>
+  
+![](img/sql-db-12.png)
 <hr>
   

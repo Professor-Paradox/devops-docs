@@ -11,7 +11,7 @@ sudo apt install openjdk-8-jdk -y
 
 java -version
 
-echo -e "\nexport JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-amd64/\"\nexport PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.bashrc && source ~/.bashrc
+echo -e "\nexport JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-amd64\"\nexport PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.bashrc && source ~/.bashrc
 
 echo $JAVA_HOME
 

@@ -27,15 +27,20 @@ sudo npm install -g @angular/cli
 npm install .
 
 # step 3
-# test webserver
+# access the <vm-ip> from azure on your web browser in incognito
+# <vm-ip>:4200
+# Now lets install start angular server 
 ng serve --host 0.0.0.0 
-# access the vm with <ip>:4200
+# access the vm with <ip>:4200 and check the difference
+
+# exit the ng serve with Ctrl+C combo
 
 # step 4
-# build this project for production
+# build this project for production deployment
 ng build --configuration=production
 
-
+# now we can deploy this built data with a web server
+# follow the nginx tutorial for that
 ```
 
 ## Here are the Screenshots
@@ -59,5 +64,11 @@ ng build --configuration=production
 <hr>
   
 ![](img/angular-deploy-07.png)
+<hr>
+  
+![](img/angular-deploy-08.png)
+<hr>
+  
+![](img/angular-deploy-09.png)
 <hr>
   

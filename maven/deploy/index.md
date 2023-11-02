@@ -13,16 +13,14 @@ sudo apt update
 sudo apt install git maven net-tools -y
 
 # Step 2
-cd ~
-git clone https://github.com/Professor-Paradox/spring_devops_demo.git
+cd ~; git clone https://github.com/Professor-Paradox/spring_devops_demo.git
 ls -la 
 cd spring_devops_demo
 ls -la
 
 # Step 3
 chmod +x ./mvnw
-./mvnw clean install -DskipTests
-./mvnw clean package -DskipTests
+./mvnw clean install package -DskipTests
 
 # Step 4 Copy the Jar file
 ll ~/spring_devops_demo/target
@@ -30,7 +28,7 @@ cp ~/spring_devops_demo/target/spring_devops_demo-0.0.1-SNAPSHOT.jar ~/spring.ja
 chmod +x ~/spring.jar
 
 # Step 5:
-# Create java properties file
+# Create java properties file, copy entire block of code from tee to EoF and paste in terminal or putty
 tee ~/application.properties << EOF > /dev/null
 # DataSource Configuration
 spring.datasource.url=jdbc:mysql://localhost:3306/devops_demo
@@ -57,20 +55,22 @@ logging.level.org.hibernate.SQL=DEBUG
 logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 EOF
 
-sudo chmod 755 ~/application.properties
+chmod 755 ~/application.properties
 
 # Run java jar file 
 # make sure application.properties and spring.jar file are in the same directory
-java -jar ~/spring.jar > maven.log 2>&1 &
-
+java -jar ~/spring.jar > ~/maven.log 2>&1 &
 
 # check if the service is running in background
 ps -a
 
+# now view the code of spring starting, this will wait for 30 seconds and then open the maven.log file
+sleep 20; cat ~/maven.log
 
+# test the api with this code, insert bulk data
 
-# multiple api code insertion
-#!/bin/bash
+# lets test the db now
+mysql -u root -p'P@ssw0rd' -e "select * from devops_demo.student;"
 
 apiUrl="http://localhost:8080/api/student/bulk"
 
@@ -83,7 +83,11 @@ students='[
 
 curl -X POST -H 'Content-Type: application/json' -d "$students" "$apiUrl"
 
+mysql -u root -p'P@ssw0rd' -e "select * from devops_demo.student;"
+# we inserted data in to this db with api and test
 
+# get all the same api data to test get method also
+curl -X GET "http://localhost:8080/api/student"
 
 ```
 ## If getting Data Base issue refer to [Data Base Setup](../../sql/deploy/index.md)
@@ -127,8 +131,5 @@ curl -X POST -H 'Content-Type: application/json' -d "$students" "$apiUrl"
 <hr>
   
 ![](img/maven-13.png)
-<hr>
-  
-![](img/maven-14.png)
 <hr>
   
