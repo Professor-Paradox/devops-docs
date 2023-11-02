@@ -78,16 +78,7 @@ netstat -tulpn
   
 ![](img/sql-db-07.png)
 <hr>
-  
-![](img/sql-db-08.png)
-<hr>
-  
-![](img/sql-db-09.png)
-<hr>
-  
-![](img/sql-db-10.png)
-<hr>
-  
+
 ![](img/sql-db-11.png)
 <hr>
   
