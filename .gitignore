@@ -1,3 +1,5 @@
 terraform/vm-deployment/.terraform.lock.hcl
 terraform/vm-deployment/terraform.tfstate
 terraform/vm-deployment/.terraform/*
+terraform/vm-deployment/.terraform.tfstate.lock.info
+terraform/vm-deployment/terraform.tfstate.backup

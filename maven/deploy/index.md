@@ -61,10 +61,30 @@ sudo chmod 755 ~/application.properties
 
 # Run java jar file 
 # make sure application.properties and spring.jar file are in the same directory
-java -jar ~/spring.jar &  
+java -jar ~/spring.jar > maven.log 2>&1 &
 
-# check if the service is running in backgrou
+
+# check if the service is running in background
 ps -a
+
+
+
+# multiple api code insertion
+#!/bin/bash
+
+apiUrl="http://localhost:8080/api/student/bulk"
+
+students='[
+    {"rollNo": "2023001", "branch": "Computer Science", "fullName": "John Doe", "email": "john.doe@example.com", "phoneNumber": "1234567890"},
+    {"rollNo": "2023002", "branch": "Electrical Engineering", "fullName": "Jane Smith", "email": "jane.smith@example.com", "phoneNumber": "9876543210"},
+    {"rollNo": "2023003", "branch": "Mechanical Engineering", "fullName": "Bob Johnson", "email": "bob.johnson@example.com", "phoneNumber": "5551234567"},
+    {"rollNo": "2023004", "branch": "Civil Engineering", "fullName": "Alice Williams", "email": "alice.williams@example.com", "phoneNumber": "4447890123"}
+]'
+
+curl -X POST -H 'Content-Type: application/json' -d "$students" "$apiUrl"
+
+
+
 ```
 ## If getting Data Base issue refer to [Data Base Setup](../../sql/deploy/index.md)
 
