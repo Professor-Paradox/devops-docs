@@ -24,12 +24,12 @@ chmod +x ./mvnw
 
 # Step 4 Copy the Jar file
 ll ~/spring_devops_demo/target
-cp ~/spring_devops_demo/target/spring_devops_demo-0.0.1-SNAPSHOT.jar ~/spring.jar
-chmod +x ~/spring.jar
+sudo mkdir -p /opt/spring_devops_demo
+sudo cp ~/spring_devops_demo/target/spring_devops_demo-0.0.1-SNAPSHOT.jar /opt/spring_devops_demo/spring.jar
 
 # Step 5:
 # Create java properties file, copy entire block of code from tee to EoF and paste in terminal or putty
-tee ~/application.properties << EOF > /dev/null
+sudo tee /opt/spring_devops_demo/application.properties << EOF > /dev/null
 # DataSource Configuration
 spring.datasource.url=jdbc:mysql://localhost:3306/devops_demo
 spring.datasource.username=root
@@ -55,17 +55,37 @@ logging.level.org.hibernate.SQL=DEBUG
 logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 EOF
 
-chmod 755 ~/application.properties
+sudo chmod -R 755 /opt/spring_devops_demo/
 
 # Run java jar file 
 # make sure application.properties and spring.jar file are in the same directory
-java -jar ~/spring.jar > ~/maven.log 2>&1 &
+# Create a systemd service to start this jar file on startup
+sudo tee /etc/systemd/system/spring_devops_demo.service << EOF > /dev/null
+[Unit]
+Description=Spring Boot Application
+After=network.target
+
+[Service]
+User=ubuntu
+ExecStart=/usr/bin/java -jar /opt/spring_devops_demo/spring.jar
+SuccessExitStatus=143
+StandardOutput=file:/opt/spring_devops_demo/maven.log
+StandardError=file:/opt/spring_devops_demo/maven.log
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now spring_devops_demo
 
 # check if the service is running in background
-ps -a
+sudo systemctl status spring_devops_demo
 
-# now view the code of spring starting, this will wait for 30 seconds and then open the maven.log file
-sleep 20; cat ~/maven.log
+# check logs with this
+sudo cat /opt/spring_devops_demo/maven.log
+
 
 # test the api with this code, insert bulk data
 
@@ -75,10 +95,26 @@ mysql -u root -p'P@ssw0rd' -e "select * from devops_demo.student;"
 apiUrl="http://localhost:8080/api/student/bulk"
 
 students='[
-    {"rollNo": "2023001", "branch": "Computer Science", "fullName": "John Doe", "email": "john.doe@example.com", "phoneNumber": "1234567890"},
-    {"rollNo": "2023002", "branch": "Electrical Engineering", "fullName": "Jane Smith", "email": "jane.smith@example.com", "phoneNumber": "9876543210"},
-    {"rollNo": "2023003", "branch": "Mechanical Engineering", "fullName": "Bob Johnson", "email": "bob.johnson@example.com", "phoneNumber": "5551234567"},
-    {"rollNo": "2023004", "branch": "Civil Engineering", "fullName": "Alice Williams", "email": "alice.williams@example.com", "phoneNumber": "4447890123"}
+    {"rollNo": "2023005", "branch": "Chemical Engineering", "fullName": "David Miller", "email": "david.miller@example.com", "phoneNumber": "7775551234"},
+    {"rollNo": "2023006", "branch": "Biomedical Engineering", "fullName": "Emily Davis", "email": "emily.davis@example.com", "phoneNumber": "1112223344"},
+    {"rollNo": "2023007", "branch": "Aerospace Engineering", "fullName": "Michael Wilson", "email": "michael.wilson@example.com", "phoneNumber": "9998887777"},
+    {"rollNo": "2023008", "branch": "Information Technology", "fullName": "Olivia Brown", "email": "olivia.brown@example.com", "phoneNumber": "3334445555"},
+    {"rollNo": "2023009", "branch": "Electronics and Communication", "fullName": "William Taylor", "email": "william.taylor@example.com", "phoneNumber": "6667778888"},
+    {"rollNo": "2023010", "branch": "Environmental Engineering", "fullName": "Sophia Lee", "email": "sophia.lee@example.com", "phoneNumber": "2223334444"},
+    {"rollNo": "2023011", "branch": "Industrial Engineering", "fullName": "Ethan Hernandez", "email": "ethan.hernandez@example.com", "phoneNumber": "7776665555"},
+    {"rollNo": "2023012", "branch": "Materials Science", "fullName": "Ava Jackson", "email": "ava.jackson@example.com", "phoneNumber": "5554443333"},
+    {"rollNo": "2023013", "branch": "Petroleum Engineering", "fullName": "Liam Garcia", "email": "liam.garcia@example.com", "phoneNumber": "8889990000"},
+    {"rollNo": "2023014", "branch": "Software Engineering", "fullName": "Mia Martinez", "email": "mia.martinez@example.com", "phoneNumber": "1110009999"},
+    {"rollNo": "2023015", "branch": "Biotechnology", "fullName": "Noah Robinson", "email": "noah.robinson@example.com", "phoneNumber": "4445556666"},
+    {"rollNo": "2023016", "branch": "Nuclear Engineering", "fullName": "Emma White", "email": "emma.white@example.com", "phoneNumber": "9991112222"},
+    {"rollNo": "2023017", "branch": "Computer Engineering", "fullName": "Liam Thomas", "email": "liam.thomas@example.com", "phoneNumber": "6665554444"},
+    {"rollNo": "2023018", "branch": "Robotics Engineering", "fullName": "Isabella Turner", "email": "isabella.turner@example.com", "phoneNumber": "2223334444"},
+    {"rollNo": "2023019", "branch": "Mathematics", "fullName": "Elijah Adams", "email": "elijah.adams@example.com", "phoneNumber": "7778889999"},
+    {"rollNo": "2023020", "branch": "Physics", "fullName": "Grace Hill", "email": "grace.hill@example.com", "phoneNumber": "5556667777"},
+    {"rollNo": "2023021", "branch": "Chemistry", "fullName": "Logan Ward", "email": "logan.ward@example.com", "phoneNumber": "9990001111"},
+    {"rollNo": "2023022", "branch": "Economics", "fullName": "Abigail Foster", "email": "abigail.foster@example.com", "phoneNumber": "1112223333"},
+    {"rollNo": "2023023", "branch": "Political Science", "fullName": "Caleb Perry", "email": "caleb.perry@example.com", "phoneNumber": "4445556666"},
+    {"rollNo": "2023024", "branch": "Psychology", "fullName": "Hannah Simmons", "email": "hannah.simmons@example.com", "phoneNumber": "7778889999"}
 ]'
 
 curl -X POST -H 'Content-Type: application/json' -d "$students" "$apiUrl"
@@ -89,6 +125,7 @@ mysql -u root -p'P@ssw0rd' -e "select * from devops_demo.student;"
 # get all the same api data to test get method also
 curl -X GET "http://localhost:8080/api/student"
 
+# the log files for the folder are located at /opt/spring_devops_demo folder
 ```
 ## If getting Data Base issue refer to [Data Base Setup](../../sql/deploy/index.md)
 
@@ -113,6 +150,9 @@ curl -X GET "http://localhost:8080/api/student"
 <hr>
   
 ![](img/maven-07.png)
+<hr>
+  
+![](img/maven-07-1.png)
 <hr>
   
 ![](img/maven-08.png)

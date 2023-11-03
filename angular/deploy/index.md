@@ -57,7 +57,7 @@ ng build --configuration=production
 ![](img/angular-deploy-04.png)
 <hr>
   
-![](img/angular-deploy-05.png)
+![](img/angular-deploy-05.png)  
 <hr>
   
 ![](img/angular-deploy-06.png)

@@ -23,14 +23,14 @@ sudo chmod -R +rx /var/www/html
 # now we can see that there is no data base or api connection lets solve that
 
 # step 3
-sudo tee /etc/nginx/sites-enabled/default << EOF > /dev/null
+sudo tee /etc/nginx/sites-enabled/default << 'EOF' > /dev/null
 server {
   listen 80 default_server;
   listen [::]:80 default_server;
 
   root /var/www/html;
 
-  index index.html index.htm index.nginx-debian.html;
+  index index.html index.htm;
 
   server_name _;
 
@@ -43,8 +43,6 @@ server {
   
   location /api/ {
     proxy_pass http://localhost:8080;
-    proxy_http_version 1.1;
-    proxy_set_header Host localhost;
   }
 }
 EOF
