@@ -55,6 +55,8 @@
 
 1. Now create this vm and open in new putty or new ssh session so now you should have two vms and two putty sessions 
 Run these commands on each machine with hostname clearly mentioned
+
+
 ```bash
 # on both devops-vm and jenkins-vm
 # run the commands as needed
@@ -80,8 +82,8 @@ ssh ubuntu@devops-vm
 
 # now lets view the ls -la for devops-vm from jenkins-vm this is first step of automation
 sshpass -p 'Password@1234' ssh ubuntu@devops-vm 'sudo bash -c ls -la ~'
-
 ```
+
 
 ![](img/jenkins-14.png)
 <hr>
