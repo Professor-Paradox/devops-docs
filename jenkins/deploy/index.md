@@ -6,7 +6,6 @@
 4. configure jenkins fresh setup
 5. create a shell script on "devops-vm" that can be trigger by jenkins-vm
 6. create a job in jenkins ui to trigger above script on "devops-vm"
-7. automate the build trigger from gihub so no manual interaction is needed.
 
 ### Explanation of below screenshots after jenkins starts
 
@@ -80,7 +79,7 @@ ssh ubuntu@devops-vm
 # this will ask for yes confirm enter yes and then press ctrl+c we need this manual confirmation
 
 # now lets view the ls -la for devops-vm from jenkins-vm this is first step of automation
-sshpass -p 'Password@1234' ssh ubuntu@devops-vm 'bash -c ls -la ~'
+sshpass -p 'Password@1234' ssh ubuntu@devops-vm 'sudo bash -c ls -la ~'
 
 ```
 
@@ -134,7 +133,8 @@ chmod +x ~/angular_build_jenkins.sh
 ```bash 
 # Now we can trigger the shell script from the jenkins-vm lets try manually with terminal
 # after we can do the same with jenkins tool ui
-sshpass -p 'Password@1234' ssh ubuntu@devops-vm 'bash -c ~/angular_build_jenkins.sh'
+/usr/bin/sshpass -p 'Password@1234' ssh  -o StrictHostKeyChecking=no ubuntu@devops-vm 'sudo bash -c ~/angular_build_jenkins.sh'
+
 ```
 
 ![](img/jenkins-22.png)
@@ -242,73 +242,38 @@ sudo systemctl status jenkins
 <hr>
   
 
+#### Jenkins Job Creation for Angular building
 
+1. click on the first create job item and then click on freestyle give a name
+2. provide the description to this project
+3. select the build option as execute shell
+4. add the command or script to run for this job
+5. save and build the job
 
-
-### linux commands to run for jenkins CI automation
-```bash
-# lets create a shell script that can run angular b
-
-```
-
-
-
-## Here are the Screenshots
-
-![](img/jenkins-01.png)
+![](img/jenkins-42.png)
 <hr>
   
-![](img/jenkins-02.png)
+![](img/jenkins-43.png)
 <hr>
   
-![](img/jenkins-03.png)
+![](img/jenkins-44.png)
 <hr>
   
-![](img/jenkins-04.png)
+![](img/jenkins-45.png)
 <hr>
   
-![](img/jenkins-05.png)
+![](img/jenkins-46.png)
 <hr>
   
-![](img/jenkins-06.png)
+![](img/jenkins-47.png)
 <hr>
   
-![](img/jenkins-07.png)
+![](img/jenkins-48.png)
 <hr>
   
-![](img/jenkins-08.png)
+![](img/jenkins-49.png)
 <hr>
   
-![](img/jenkins-09.png)
+![](img/jenkins-50.png)
 <hr>
-  
-![](img/jenkins-10.png)
-<hr>
-  
-![](img/jenkins-11.png)
-<hr>
-  
-![](img/jenkins-12.png)
-<hr>
-  
-![](img/jenkins-13.png)
-<hr>
-  
-![](img/jenkins-14.png)
-<hr>
-  
-![](img/jenkins-15.png)
-<hr>
-  
-![](img/jenkins-16.png)
-<hr>
-  
-![](img/jenkins-17.png)
-<hr>
-  
-![](img/jenkins-18.png)
-<hr>
-  
-![](img/jenkins-19.png)
-<hr>
-  
+    

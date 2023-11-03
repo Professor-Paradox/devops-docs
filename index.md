@@ -18,4 +18,11 @@
 
 #### Done With Deployment of Web Application
 
-1. [Docker Tutorial](./docker/index.md)
+# Jenkins CI CD Automation
+
+- Required Working Application from Above Steps
+- We also need a 2nd vm for jenkins alone so that we can automate our flow
+  - Follow the above azure vm creation guide to trigger a new 2nd vm and then follow the jenkins install deploy
+
+1. [Automate Building with Jenkins](./jenkins/deploy/index.md)
+2. [Docker Tutorial](./docker/index.md)
